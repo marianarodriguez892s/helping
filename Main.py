@@ -20,24 +20,23 @@ async def on_member_join(member):
 @client.event
 async def on_ready():
 	await client.change_presence(game=Game(name='Pink Land'))
-	print('Ready, Freddy') 
-
-
+	print('Ready, Freddy')
+	
 @client.event
 async def on_message(message):
-	if message.content.startswith('$pingg'):
-		await client.send_message(message.channel,'Welcome <@%s>'  %(message.author.id))
-	
-	if message.content.startswith('$pink'):
-		em = discord.Embed(description='<3')
-		em.set_image(url='https://cdn.discordapp.com/attachments/528886659031236608/530655785580101633/test_for_lauras_bot.jpg%27)
-		await client.send_message(message.channel, embed=em)
-	
-	if message.content.startswith('$pinkland'):
-		await client.send_message(message.channel,'PinkLand is owned by Lauraispink and this bot was made by Spinayy!')
-	
-	if message.content.startswith('$server'):
-		randomlist = ["Hey","Mason_smells","SlimShadySmellsGood"]
-		await client.send_message(message.channel,(random.choice(randomlist)))
+    if message.content.upper().startswith('.ADMINME'):
+        userID = message.author.id
+        await client.send_message(message.channel, ":x: You do not have the permission to do that <@%s" % (userID))
+    if message.content.upper().startswith('.LOGIN'):
+        if message.author.id == "<USER ID>": #Replace <User ID> with the ID of the user you want to be able to execute this command!
+            args = message.content.split(" ")
+            await client.send_message(message.channel, "%s" % (" ".join(args[1:])))
+        else:
+            await client.send_message(message.channel, "You do not have permission to log into this service!")
+    if message.content.upper().startswith('.AMIADMIN'):
+        if "<Role ID>" in [role.id for role in message.author.roles]: #Replace <Role ID> with the ID of the role you want to be able to execute this command
+            await client.send_message(message.channel, "You are an administrator!")
+        else:
+            await client.send_message(message.channel, "You are not an administrator! Please ensure that i have the full permissions and above all of the higher ranks.")
 
 client.run(os.environ['BOT_TOKEN'])
