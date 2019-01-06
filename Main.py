@@ -12,15 +12,10 @@ client = commands.Bot(command_prefix = '!')
 Clientdiscord = discord.Client()
 
 @client.event
-async def on_member_join(member):
-    print('Recognised that a member called ' + member.name + ' joined')
-    await client.send_message(member, 'Welcome to the server hope you have a great time!!!!!')
-    print('Sent message to ' + member.name)
-
-@client.event
 async def on_ready():
-	await client.change_presence(game=Game(name='Pink Land'))
-	print('Ready, Freddy')
+	print("Logged in as")
+	print(client.user.name)
+	print(client.user.id)
 	
 @client.event
 async def on_message(message):
